@@ -37,13 +37,14 @@ public class SoftwareController {
 	}
 
 	@GetMapping(value = "/{id}")
-	@Operation(summary = "Get Softwares id")
+	@Operation(summary = "Get software through id")
 	public ResponseEntity<SoftwareDTO> findByIdSoftware(@PathVariable Integer id) {
 		SoftwareDTO softwareDTO = softwareService.findById(id);
 		return ResponseEntity.ok().body(softwareDTO);
 	}
 
 	@PostMapping()
+	@Operation(summary = "Post software")
 	public ResponseEntity<Void> inserSoftware(@Valid @RequestBody SoftwareDTO newSoftwarejDTO) {
 		SoftwareDTO softwareDTO = softwareService.insert(newSoftwarejDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(softwareDTO.getId())
@@ -52,6 +53,7 @@ public class SoftwareController {
 	}
 
 	@PutMapping(value = "/{id}")
+	@Operation(summary = "Put software through id")
 	public ResponseEntity<?> updateSoftware(@Valid @RequestBody SoftwareDTO softwareDTO, @PathVariable Integer id) {
 		softwareDTO.setId(id);
 		softwareService.update(softwareDTO, id);
@@ -59,6 +61,7 @@ public class SoftwareController {
 	}
 
 	@DeleteMapping(value = "/{id}")
+	@Operation(summary = "Delete software through id")
 	public ResponseEntity<Void> deleteSoftware(@PathVariable Integer id) {
 		softwareService.delete(id);
 		return ResponseEntity.noContent().build();
