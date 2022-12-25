@@ -4,17 +4,17 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.br.sat.entity.Software;
+import com.br.sat.dto.SoftwareDTO;
 
-public interface SoftwareService {
+public abstract interface SoftwareService {
 
-	public List<Software> findAll();
+	public List<SoftwareDTO> findAll();
 
-	public Software insert(@Valid Software obj);
+	public SoftwareDTO insert(@Valid SoftwareDTO obj);
 
-	public Software findById(Integer id);
+	public SoftwareDTO findById(Integer id);
 
-	public Software update(@Valid Software obj);
+	public SoftwareDTO update(@Valid SoftwareDTO obj, Integer id);
 
 	public void delete(Integer id);
 

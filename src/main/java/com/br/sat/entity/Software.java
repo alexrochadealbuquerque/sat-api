@@ -17,7 +17,6 @@ public class Software implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	String softwareName;
-	String activo;
 	private static final long serialVersionUID = 1L;
 
 }

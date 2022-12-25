@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.br.sat.entity.Software;
+import com.br.sat.dto.SoftwareDTO;
 import com.br.sat.service.SoftwareService;
 
 @RestController
@@ -28,39 +28,36 @@ public class SoftwareController {
 	private SoftwareService softwareService;
 
 	@GetMapping()
-	public ResponseEntity<List<Software>> findAllSoftware() {
-		List<Software> listObj = softwareService.findAll();
-		return ResponseEntity.ok().body(listObj);
+	public ResponseEntity<List<SoftwareDTO>> findAllSoftware() {
+		List<SoftwareDTO> listSoftwareDTO = softwareService.findAll();
+		return ResponseEntity.ok().body(listSoftwareDTO);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Software> findByIdSoftware(@PathVariable Integer id) {
-		Software ResultObj = softwareService.findById(id);
-		return ResponseEntity.ok().body(ResultObj);
+	public ResponseEntity<SoftwareDTO> findByIdSoftware(@PathVariable Integer id) {
+		SoftwareDTO softwareDTO = softwareService.findById(id);
+		return ResponseEntity.ok().body(softwareDTO);
 	}
 
 	@PostMapping()
-	public ResponseEntity<Void> inserSoftware(@Valid @RequestBody Software obj) {
-
-		Software ResultObj = softwareService.insert(obj);
-
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ResultObj.getId())
+	public ResponseEntity<Void> inserSoftware(@Valid @RequestBody SoftwareDTO newSoftwarejDTO) {
+		SoftwareDTO softwareDTO = softwareService.insert(newSoftwarejDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(softwareDTO.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> updateSoftware(@Valid @RequestBody Software obj, @PathVariable Integer id) {
-		obj.setId(id);
-		softwareService.update(obj);
+	public ResponseEntity<?> updateSoftware(@Valid @RequestBody SoftwareDTO softwareDTO, @PathVariable Integer id) {
+		softwareDTO.setId(id);
+		softwareService.update(softwareDTO, id);
 		return ResponseEntity.noContent().build();
-
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> deleteSoftware(@PathVariable Integer id) {
 		softwareService.delete(id);
 		return ResponseEntity.noContent().build();
-	}	
+	}
 
 }
