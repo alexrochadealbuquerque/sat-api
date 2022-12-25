@@ -20,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.br.sat.dto.SoftwareDTO;
 import com.br.sat.service.SoftwareService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping(path = "/sat/api/software")
 public class SoftwareController {
@@ -28,12 +30,14 @@ public class SoftwareController {
 	private SoftwareService softwareService;
 
 	@GetMapping()
+	@Operation(summary = "Get List Softwares")
 	public ResponseEntity<List<SoftwareDTO>> findAllSoftware() {
 		List<SoftwareDTO> listSoftwareDTO = softwareService.findAll();
 		return ResponseEntity.ok().body(listSoftwareDTO);
 	}
 
 	@GetMapping(value = "/{id}")
+	@Operation(summary = "Get Softwares id")
 	public ResponseEntity<SoftwareDTO> findByIdSoftware(@PathVariable Integer id) {
 		SoftwareDTO softwareDTO = softwareService.findById(id);
 		return ResponseEntity.ok().body(softwareDTO);
