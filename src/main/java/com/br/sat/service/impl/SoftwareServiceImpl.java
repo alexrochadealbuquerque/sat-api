@@ -25,9 +25,8 @@ public class SoftwareServiceImpl implements SoftwareService {
 
 	public List<SoftwareDTO> findAll() {
 		List<Software> listSoftware = softwareRepository.findAll();
-		Type listType = new TypeToken<List<SoftwareDTO>>() {
-		}.getType();
-		List<SoftwareDTO> listSoftwareDTO = modelMapper.map(listSoftware, listType);
+		Type listTypeSoftwareDTO = new TypeToken<List<SoftwareDTO>>() {}.getType();
+		List<SoftwareDTO> listSoftwareDTO = modelMapper.map(listSoftware, listTypeSoftwareDTO);
 		return listSoftwareDTO;
 	}
 
@@ -44,6 +43,7 @@ public class SoftwareServiceImpl implements SoftwareService {
 	}
 
 	public SoftwareDTO update(SoftwareDTO softwareDTO, Integer id) {
+		softwareDTO.setId(id);
 		Software newSoftware = findByIdSoftware(id).get();
 		updateData(newSoftware, softwareDTO);
 		return modelMapper.map(softwareRepository.save(newSoftware), SoftwareDTO.class);

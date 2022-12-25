@@ -54,8 +54,7 @@ public class SoftwareController {
 
 	@PutMapping(value = "/{id}")
 	@Operation(summary = "Put software through id")
-	public ResponseEntity<?> updateSoftware(@Valid @RequestBody SoftwareDTO softwareDTO, @PathVariable Integer id) {
-		softwareDTO.setId(id);
+	public ResponseEntity<?> updateSoftware(@Valid @RequestBody SoftwareDTO softwareDTO, @PathVariable Integer id) {		
 		softwareService.update(softwareDTO, id);
 		return ResponseEntity.noContent().build();
 	}
